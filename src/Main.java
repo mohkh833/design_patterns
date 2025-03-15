@@ -3,6 +3,10 @@ import ChainOfResponsibility.*;
 import Observer.EmailNotificationListener;
 import Observer.LogOpenListener;
 import command.Editor;
+import interpreter.AdditionExpression;
+import interpreter.Expression;
+import interpreter.NumberExpression;
+import interpreter.SubtractionExpression;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -40,8 +44,18 @@ public class Main {
 //            e.printStackTrace();
 //        }
 
-        Editor editor = new Editor();
-        editor.init();
+//        Editor editor = new Editor();
+//        editor.init();
+
+
+        Expression five = new NumberExpression(5);
+        Expression three = new NumberExpression(3);
+        Expression two = new NumberExpression(2);
+
+        Expression addition = new AdditionExpression(five, three); // (5 + 3)
+        Expression subtraction = new SubtractionExpression(addition, two); // (5 + 3) - 2
+
+        System.out.println("Result: " + subtraction.interpret());
     }
 }
 
