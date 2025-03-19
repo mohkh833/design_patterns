@@ -12,6 +12,9 @@ import interpreter.Expression;
 import interpreter.NumberExpression;
 import interpreter.SubtractionExpression;
 import iterator.*;
+import memento.TextEditor;
+import memento.TextEditorHistory;
+import memento.TextEditorMemento;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -98,17 +101,33 @@ public class Main {
 //        data.add(new Profile("catwoman@yahoo.com", "Liza", "friends:anna.smith@bing.com", "friends:sam@amazon.com"));
 //        return data;
 
-        ChatMediator mediator = new ChatMediatorImpl();
-        User user1 = new UserImpl(mediator, "Pankaj");
-        User user2 = new UserImpl(mediator, "Lisa");
-        User user3 = new UserImpl(mediator, "Saurabh");
-        User user4 = new UserImpl(mediator, "David");
-        mediator.addUser(user1);
-        mediator.addUser(user2);
-        mediator.addUser(user3);
-        mediator.addUser(user4);
+//        ChatMediator mediator = new ChatMediatorImpl();
+//        User user1 = new UserImpl(mediator, "Pankaj");
+//        User user2 = new UserImpl(mediator, "Lisa");
+//        User user3 = new UserImpl(mediator, "Saurabh");
+//        User user4 = new UserImpl(mediator, "David");
+//        mediator.addUser(user1);
+//        mediator.addUser(user2);
+//        mediator.addUser(user3);
+//        mediator.addUser(user4);
+//
+//        user1.send("Hi All");
 
-        user1.send("Hi All");
+        TextEditor textEditor = new TextEditor();
+        TextEditorHistory history = new TextEditorHistory();
+        textEditor.appendText("Hello");
+        System.out.println(textEditor.getText()); // Output: Hello
+        // Save the state
+        history.saveState(textEditor.save());
+        textEditor.appendText(" World");
+        System.out.println(textEditor.getText());
+        // Output: Hello World
+        // Restore the previous state
+        TextEditorMemento memento = history.restoreState();
+        if (memento != null) {
+            textEditor.restore(memento);
+        }
+        System.out.println(textEditor.getText()); // Output: Hello
     }
     }
 
